@@ -37,29 +37,31 @@ class DieTemplate:
         
         self.faceCount = len(self.faces)
 
-    def roll(self):
+    def roll(self, count=1):
         """Roll a single die of the template type
         
         Return: a string representing the rolled face
         """
         
-        index = random.randint(0, self.faceCount - 1)
-        return self.faces[index]
-    
-    def rollPool(self, diceCount):
-        """Roll a pool of the die template
-        
-        Keyword arguments:
-        diceCount -- integer representing the number of dice to be rolled in the pool
-        Return: A list of strings representing the faces randomly rolled from the pool
-        """
-        
         pool = list()
 
-        for die in range(diceCount):            
-            pool.append(self.roll())
+        for die in range(count):            
+            pool.append(index = random.randint(0, self.faceCount - 1))
 
         return pool
+    
+    def explode(self, pool, targets, recursive=False, recursion_depth=1):
+
+        result = list()
+
+        for die in pool:
+            result.append(self.roll())
+        
+        if recursive and (recursion_depth > 0 or recursion_depth == -1):
+            result.append(self.explode(result, targets, recursive, recursion_depth - 1))
+        
+        return result
+
         
 class NumericDieTemplate(DieTemplate):
     """A simplified version of DieTemplate used for purely numeric dice (no special faces)
@@ -80,9 +82,28 @@ class NumericDieTemplate(DieTemplate):
 
         super().__init__(faces)
 
-class DiceHelper:
-    def roll(pool):
+class DiePool:
+    def __init__(self, template, count, explodes=False, targets=[], recursive=False):
+        self.template = template
+        self.count = count
+        self.explodes = explodes
+        self.targets = targets
+        self.recursive = recursive
+    
+    def roll(self):
         result = list()
 
-        for die in pool:
-            result.append(die.roll)
+        result.append(self.template.roll(self.count))
+
+        if self.explodes:
+            result.append(self.explode(result, self.recursive))
+
+
+class DiceHelper:
+    def rollMixedPool(mixed_pool):
+        result = list()
+
+        for pool in mixed_pool:
+            result.append(pool.roll())
+
+        

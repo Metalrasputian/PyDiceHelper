@@ -101,6 +101,15 @@ def roll_symbol_dice():
     print(pool)
     print("Hits: {}, misses: {}, crits: {}".format(result[0], result[1], result[2]))
     print("===============")
+
+def roll_explode_dice():
+    faces = [("*", 2), ("$", 3), (" ", 2), ("**", 1)]
+    dieTemplate = DieTemplate(faces)
+
+    explodes_on = ["$", "**"]
+
+    
+
     
 if __name__ == "__main__":
     play_five_dice()
