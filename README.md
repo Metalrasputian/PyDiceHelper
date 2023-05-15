@@ -1,1 +1,1 @@
-# Pyce: A Dice Helper Library
+# PyDiceHelper: A Dice Helper Library for Python
