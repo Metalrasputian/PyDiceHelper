@@ -43,7 +43,7 @@ class DieTemplate:
         Return: a string representing the rolled face
         """
         
-        index = random.randint(0, self.faceCount)
+        index = random.randint(0, self.faceCount - 1)
         return self.faces[index]
     
     def rollPool(self, diceCount):
@@ -73,8 +73,12 @@ class NumericDieTemplate(DieTemplate):
         faceCount -- the number of faces on the die
         Return: a DieTemplate with iterated numeric faces
         """
-        
-        super().__init__(range(faceCount))
+        faces = list()
+
+        for face in range(1, faceCount + 1):
+            faces.append((str(face), 1))
+
+        super().__init__(faces)
 
 class DiceHelper:
     def roll(pool):
