@@ -1,18 +1,4 @@
-import random
 import math
-
-def rollDie(faces):
-    roll = random.randint(1, faces)
-    return roll
-
-def rollPool(count, faces):
-
-    pool = list()
-
-    for i in range(count):
-        pool.append(rollDie(faces))
-
-    return pool
 
 def countFaces(pool, faces):
     counts = list()
@@ -21,7 +7,7 @@ def countFaces(pool, faces):
         counts.append(0)
 
     for die in pool:
-        counts[die-1] += 1
+        counts[int(die)-1] += 1
 
     return counts
 
@@ -29,14 +15,16 @@ def scoreSet(face, count):
     score = 0
     value = 0
 
-    if face == 1:
+    face_int = int(face)
+
+    if face_int == 1:
         value = 100
     else:
-        value = face * 10
+        value = face_int * 10
 
     score += math.floor(count / 3) * 10 * value
 
-    if face == 1 or face == 5:
+    if face_int == 1 or face_int == 5:
         score += (count % 3) * value
 
     return score
