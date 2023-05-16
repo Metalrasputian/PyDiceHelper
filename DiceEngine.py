@@ -61,6 +61,20 @@ class DieTemplate:
             result.append(self.explode(result, targets, recursive, recursion_depth - 1))
         
         return result
+    
+    def reroll(self, pool, targets, recursive=False, recursion_depth=1):
+
+        index = 0
+        result = pool
+
+        for die in result:
+            if die in targets:
+                result[index] = self.roll()
+        
+        if recursive and (recursion_depth > 0 or recursion_depth == -1):
+            result = self.reroll(result, targets, recursive, recursion_depth)
+        
+        return result
 
         
 class NumericDieTemplate(DieTemplate):
@@ -105,5 +119,4 @@ class DiceHelper:
 
         for pool in mixed_pool:
             result.append(pool.roll())
-
-        
+       
