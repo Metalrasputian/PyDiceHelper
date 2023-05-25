@@ -75,7 +75,6 @@ class DieTemplate:
             result = self.reroll(result, targets, recursive, recursion_depth)
         
         return result
-
         
 class NumericDieTemplate(DieTemplate):
     """A simplified version of DieTemplate used for purely numeric dice (no special faces)
@@ -111,7 +110,6 @@ class DiePool:
 
         if self.explodes:
             result.append(self.explode(result, self.recursive))
-
 
 class DiceHelper:
     def rollMixedPool(mixed_pool):
